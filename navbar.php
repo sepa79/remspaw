@@ -6,9 +6,6 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-        <a class="nav-link" href=":9100">Cerebro<span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Stany</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -39,6 +36,16 @@
             <a class="dropdown-header">Naprawa</a>
             <a class="dropdown-item" href="/naprawa/spawarki.php">Spawarki</a>
             <div class="dropdown-divider"></div>
+        </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle navbar-right" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Czary i magia</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="http://192.168.0.60:9000">Cerebro</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/gitUpdate.php">Git update</a>
         </div>
         </li>
     </ul>
