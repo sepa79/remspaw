@@ -24,6 +24,15 @@
   <script src="/DataTables/dataTables.bootstrap4.min.js"></script>
   <script src="/Angular-Datatables/angular-datatables.min.js"></script>
   <script src="/Angular-Datatables/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
-  <script src="/js/scripts.js"></script>
+  
+  <!-- <script src="/app/scripts.js"></script> -->
+  <script src="/app/AbstractAutocompleteService.js"></script>
+  <script src="/app/CustomerService.js"></script>
+  <script src="/app/MachineryService.js"></script>
+  <script src="/app/ManufacturerService.js"></script>
+  <script src="/app/RepairsWarehouseService.js"></script>
+  <script src="/app/RemSpawApp.js"></script>
+  <!-- <script src="/app/PrzyjecieSpawarkiCtrl.js"></script> -->
+  <script src="/app/StanySerwisuCtrl.js"></script>
   </body>
 </html>

@@ -17,9 +17,9 @@ rsApp.controller('StanySerwisuCtrl', function StanySerwisuCtrl(DTOptionsBuilder,
 
     vm.dtColumns = [
         DTColumnBuilder.newColumn('_source.dataPrzyjecia').withTitle('Data'),
-        DTColumnBuilder.newColumn('_source.nazwaFirmy').withTitle('Nazwa firmy'),
-        DTColumnBuilder.newColumn('_source.producent').withTitle('Producent'),
-        DTColumnBuilder.newColumn('_source.model').withTitle('Model'),
+        // DTColumnBuilder.newColumn('_source.nazwaFirmy').withTitle('Nazwa firmy'),
+        // DTColumnBuilder.newColumn('_source.producent').withTitle('Producent'),
+        // DTColumnBuilder.newColumn('_source.model').withTitle('Model'),
         DTColumnBuilder.newColumn('_source.numerSeryjny').withTitle('Nr seryjny')
     ];
     vm.dtInstance = {};
