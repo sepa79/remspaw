@@ -2,13 +2,13 @@
 <html lang="en">
   <head><?php include ($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?></head>
   <body><?php include ($_SERVER['DOCUMENT_ROOT'].'/navbar.php'); ?>
-    <div ng-app="RemSpawApp" ng-controller="StanySerwisuCtrl as mainApp" ng-cloak class="card">
+    <div ng-app="RemSpawApp" ng-controller="StanySerwisuCtrl as ctrl" ng-cloak class="card">
       <div class="card-header">
         Lista spawarek w serwisie
       </div>
       <div class="card-body">
         <hr>
-        <table datatable="SpawarkiW_Serwisie" dt-options="mainApp.dtOptions" dt-columns="mainApp.dtColumns" dt-instance="mainApp.dtInstance" class="table-sm table-bordered table-hover" cellspacing="0" width="100%">
+        <table datatable="SpawarkiW_Serwisie" dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns" dt-instance="ctrl.dtInstance" class="table-sm table-bordered table-hover" cellspacing="0" width="100%">
         </table>
       </div>
       <div class="card-footer text-muted">
