@@ -4,16 +4,36 @@
 rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppState, customerService, manufacturerService, machineryService, repairsWarehouseService) {
     var vm = this;
     rsAppState.PrzyjecieSpawarkiCtrl = vm;
+    vm.formStatus = "";
 
     // nowy pusty obiekt na dane spawarki
     vm.urzadzenie = nowaSpawarka();
 
+    // przycisk 'przyjecie' mo byc nieaktywny zanim sie wszystko nie wpusze poprawnie
+    vm.isAddButtonDisabled = isAddButtonDisabled;
+    function isAddButtonDisabled(formElement){
+        if( vm.customerService.cleanItemCopy.esId == null ){
+            vm.formStatus = "Nie wybrano klienta";
+            return true;
+        }
+        if( vm.machineryService.cleanItemCopy.esId == null ){
+            vm.formStatus = "Nie wybrano urządzenia";
+            return true;
+        }
+        vm.formStatus = "Przyjęcie na serwis";
+        return false;
+    }
     // przyjecie spawarki - obsluga przycisku
     vm.confirmReceipt = 
     function confirmReceipt(goods) {
         console.log("Do ES:", goods);
         // pomaglowac trza troche zanim sie wysle - wrzucic customer ID, manufacturer ID, type ID
-        repairsWarehouseService.add(goods);    
+        goods.idKlienta = vm.customerService.cleanItemCopy.esId;
+        goods.idModelu = vm.machineryService.cleanItemCopy.esId;
+        repairsWarehouseService.add(goods);
+        vm.urzadzenie = nowaSpawarka();
+        vm.initMachineForm();
+        vm.customerService.init();
     }
     // podpinamy obsluge klientow i urzadzen
     vm.customerService     = customerService;
@@ -58,12 +78,7 @@ rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppSt
             vm.machineryService.init(item.esId);
         }
     }
-        // to musi byc tak:
-        // kontroler musi miec 'isReady'
-        // przycisk dodania modelu jest aktywny tylko gdy producent.isReady i mamy nowy model
-        // Model mozna dodac tylko kiedy:
-        // 1. Producent jest wybrany (nie jest nowy, nie ma zmian i nie ma bledow).
-        // 2. Model jest nowy i nie ma bledow.
+
 });
 
 /*---~~+=============================================================================================+~~---*/
@@ -73,25 +88,22 @@ function nowaSpawarka() {
     obj.numerPrzyjecia = "1/06/2018"; // dolozyc tabelke do ES na zmienne tego typu
     obj.dataPrzyjecia = new Date();
     // dane klienta
-    obj.nazwaFirmy = null;
-    obj.telefon = null;
-    obj.email = null;
+    obj.idKlienta = null;
     // dane spawarki
-    obj.producent = null;
-    obj.model = null;
+    obj.idModelu = null;
     obj.numerSeryjny = null;
 
     // urzadzenia dodatkowe
-    obj.chlodnica = {};
-    obj.chlodnica.jest = false;
-    obj.chlodnica.producent = "";
-    obj.chlodnica.model = "";
-    obj.chlodnica.numerSeryjny = "";
-    obj.podajnik = {};
-    obj.podajnik.jest = false;
-    obj.podajnik.producent = "";
-    obj.podajnik.model = "";
-    obj.podajnik.numerSeryjny = "";
+    // obj.chlodnica = {};
+    // obj.chlodnica.jest = false;
+    // obj.chlodnica.producent = "";
+    // obj.chlodnica.model = "";
+    // obj.chlodnica.numerSeryjny = "";
+    // obj.podajnik = {};
+    // obj.podajnik.jest = false;
+    // obj.podajnik.producent = "";
+    // obj.podajnik.model = "";
+    // obj.podajnik.numerSeryjny = "";
 
     // wyposazenie
     obj.maUchwyt = false;
@@ -100,6 +112,7 @@ function nowaSpawarka() {
     obj.maDrut = false;
     obj.maReduktor = false;
     obj.maInne = null;
+    obj.dodatkoweWyposazenie = null;
 
     // wewnetrzne
     obj.doWyceny= true;

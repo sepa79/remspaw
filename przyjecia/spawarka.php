@@ -125,12 +125,7 @@
               </div>
             </md-autocomplete>
 
-            <!-- <md-input-container class="md-block" flex-gt-sm>
-              <label>Producent</label>
-              <md-icon md-font-icon="fas fa-cogs fa-lg"></md-icon>
-              <input ng-model="ctrl.urzadzenie.producent">
-            </md-input-container> -->
-            
+      <!-- md-search-text-change="ctrl.machineryService.userInputCallback(ctrl.machineryService.model.nazwa)" -->
             <md-autocomplete flex-gt-sm required
               ng-disabled="ctrl.machineryService.manufacturerId==null"
               append-icon="fas fa-cogs fa-lg"
@@ -138,7 +133,6 @@
               md-input-minlength="3"
               md-input-maxlength="50"
               md-no-cache="true"
-      md-search-text-change="ctrl.machineryService.userInputCallback(ctrl.machineryService.model.nazwa)"
               md-selected-item="ctrl.machineryService.selectedItem"
               md-selected-item-change="ctrl.machineryService.selectExisting(ctrl.machineryService.selectedItem)"
               md-search-text="ctrl.machineryService.model.nazwa"
@@ -155,12 +149,6 @@
                 <div ng-message-exp="['minlength', 'maxlength']">Rób tak cobyś wklepoł między 3 a 50 znaków</div>
               </div>
             </md-autocomplete>
-
-            <!-- <md-input-container class="md-block" flex-gt-sm>
-              <label>Model</label>
-              <md-icon md-font-icon="fas fa-cog fa-lg"></md-icon>
-              <input ng-model="ctrl.urzadzenie.model">
-            </md-input-container> -->
 
             <md-input-container class="md-block" flex-gt-sm>
               <label>Nr seryjny</label>
@@ -188,7 +176,8 @@
             <md-card flex="">
               <md-card-content>
                 <p>Wyposażenie:</p>
-                <!-- <md-button ng-click="ctrl.urzadzenie.maUchwyt = !ctrl.urzadzenie.maUchwyt">
+                <!-- Alternatywna wersja checkboxow (jako button):
+                <md-button ng-click="ctrl.urzadzenie.maUchwyt = !ctrl.urzadzenie.maUchwyt">
                   <md-icon md-font-icon="fa-lg" ng-class="ctrl.urzadzenie.maUchwyt ? 'fas fa-check-square' : 'far fa-square'" ></md-icon>Uchwyt
                 </md-button> -->
                 <div layout="row" layout-sm="column">
@@ -197,6 +186,12 @@
                   <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maAdaptor">Adaptor</md-checkbox>
                   <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maDrut">Drut</md-checkbox>
                   <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maReduktor">Reduktor</md-checkbox>
+                </div>
+                <div>
+                  <md-input-container class="md-block">
+                    <label>Dodatkowe wyposażenie</label>
+                    <textarea ng-model="ctrl.urzadzenie.dodatkoweWyposazenie" md-maxlength="200" rows="2" md-select-on-focus=""></textarea>
+                  </md-input-container>
                 </div>
               </md-card-content>
             </md-card>
@@ -243,10 +238,9 @@
               </md-input-container>
 
               <div>
-                <md-button class="md-raised md-primary" type="submit">Przyjęto na serwis</md-button>
+                <md-button ng-disabled="ctrl.isAddButtonDisabled(przyjecieSpawarki)" class="md-raised md-primary" type="submit">{{ctrl.formStatus}}</md-button>
               </div>
             </div>
-
           </md-card-content>
         </md-card>
 

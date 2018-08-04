@@ -36,7 +36,7 @@ class AbstractAutocompleteService {
     selectExisting(item) {
         if(item == null) return;
         console.log("Wybrano:", item);
-        this.model = _.cloneDeep(item.data);
+        this.model         = _.cloneDeep(item.data);
         this.isNew         = false;
         this.cleanItemCopy = item;
     }
@@ -53,7 +53,7 @@ class AbstractAutocompleteService {
     }
 
     hasChanges() {
-        console.log("Has Changes:",this.model, this.cleanItemCopy.data);
+        // console.log("Has Changes:",this.model, this.cleanItemCopy.data);
         return !_.isEqual(this.model, this.cleanItemCopy.data);
     }
 
