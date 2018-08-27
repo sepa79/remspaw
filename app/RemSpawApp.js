@@ -3,7 +3,8 @@
 /*---~~+=============================================================================================+~~---*/
 
 // var rsApp = angular.module('RemSpawApp', ['datatables', 'datatables.bootstrap', 'ngResource', 'ngMaterial', 'elasticsearch']);
-var rsApp = angular.module('RemSpawApp', ['datatables', 'datatables.bootstrap', 'elasticsearch', 'ngMaterial', 'ngMessages']);
+// var rsApp = angular.module('RemSpawApp', ['datatables', 'datatables.bootstrap', 'elasticsearch', 'ngMaterial', 'ngMessages', 'ngTable']);
+var rsApp = angular.module('RemSpawApp', ['elasticsearch', 'ngMaterial', 'ngMessages', 'ngTable']);
 
 // State manager - used when controller want to access other controllers
 rsApp.factory('rsAppState', function() {
@@ -18,6 +19,7 @@ rsApp.service('customerService', CustomerService);
 rsApp.service('manufacturerService', ManufacturerService);
 rsApp.service('machineryService', MachineryService);
 rsApp.service('repairsWarehouseService', RepairsWarehouseService);
+rsApp.service('persistentVarsService', PersistentVarsService);
 
 /*---~~+=============================================================================================+~~---*/
 rsApp.service('esClient', function(esFactory) {

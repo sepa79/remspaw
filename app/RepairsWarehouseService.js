@@ -3,7 +3,6 @@
 /*---~~+=============================================================================================+~~---*/
 class RepairsWarehouseService {
     /**
-     * In your class make sure to call init() at the end of the constructor.
      * @param {*} $q 
      * @param {*} esClient 
      */
@@ -14,6 +13,21 @@ class RepairsWarehouseService {
         this.inWarehouse = [];
     }
     
+    load(id){
+        var defer = this.$q.defer();
+        var vm = this;
+        this.esClient.get({
+            index: this.ES_IndexName,
+            type: 'main',
+            id: id
+        })
+        .then(function(result) {
+            console.log(vm.constructor.name + " get loader result:", result);
+            defer.resolve(result._source);
+        });
+        return defer.promise;
+    }
+
     // tu trza zaladowac NaprawaSpawarekIndex, ManufacturerIndex, MachineryIndex i CustomersIndex
     loadAll(filterQuery) {
         var esQuery = '';
@@ -62,6 +76,7 @@ class RepairsWarehouseService {
             // stany ida do osobnego wora
             result.responses[0].hits.hits.forEach(hit => {
                 var hitData = hit._source;
+                hitData.id = hit._id;
                 hitData.Klient = vm.dataStore[hitData.idKlienta];
                 hitData.Urzadzenie = vm.dataStore[hitData.idModelu];
                 hitData.Urzadzenie.Producent = vm.dataStore[hitData.Urzadzenie.idProducenta];

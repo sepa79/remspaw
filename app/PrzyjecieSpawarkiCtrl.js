@@ -1,14 +1,15 @@
 /*---~~+=============================================================================================+~~---*/
 /*---~~+ RemSpaw App                                                                                 +~~---*/
 /*---~~+=============================================================================================+~~---*/
-rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppState, customerService, manufacturerService, machineryService, repairsWarehouseService) {
+rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppState, customerService, manufacturerService, machineryService,
+    repairsWarehouseService, persistentVarsService) {
     var vm = this;
     rsAppState.PrzyjecieSpawarkiCtrl = vm;
     vm.formStatus = "";
 
     // nowy pusty obiekt na dane spawarki
-    vm.urzadzenie = nowaSpawarka();
-
+    vm.urzadzenie = new Urzadzenie();
+    
     // przycisk 'przyjecie' mo byc nieaktywny zanim sie wszystko nie wpusze poprawnie
     vm.isAddButtonDisabled = isAddButtonDisabled;
     function isAddButtonDisabled(formElement){
@@ -26,12 +27,17 @@ rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppSt
     // przyjecie spawarki - obsluga przycisku
     vm.confirmReceipt = 
     function confirmReceipt(goods) {
-        console.log("Do ES:", goods);
+        console.log("Dane przyjecia przed liftingiem:", goods);
         // pomaglowac trza troche zanim sie wysle - wrzucic customer ID, manufacturer ID, type ID
-        goods.idKlienta = vm.customerService.cleanItemCopy.esId;
-        goods.idModelu = vm.machineryService.cleanItemCopy.esId;
-        repairsWarehouseService.add(goods);
-        vm.urzadzenie = nowaSpawarka();
+        vm.urzadzenie.idKlienta      = vm.customerService.cleanItemCopy.esId;
+        vm.urzadzenie.idModelu       = vm.machineryService.cleanItemCopy.esId;
+        vm.urzadzenie.numerPrzyjecia = persistentVarsService.repairsIndex.value;
+        vm.urzadzenie.przyjecieNaStan();
+        repairsWarehouseService.add(vm.urzadzenie);
+        
+        // czyscimy formularze etc
+        persistentVarsService.setRepairsIndex();
+        vm.urzadzenie = new Urzadzenie();
         vm.initMachineForm();
         vm.customerService.init();
     }
@@ -85,7 +91,7 @@ rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppSt
 function nowaSpawarka() {
     var obj = {};
 
-    obj.numerPrzyjecia = "1/06/2018"; // dolozyc tabelke do ES na zmienne tego typu
+    obj.numerPrzyjecia = null;
     obj.dataPrzyjecia = new Date();
     // dane klienta
     obj.idKlienta = null;
@@ -116,8 +122,16 @@ function nowaSpawarka() {
     obj.Wyposazenie.dodatkowe = null;
 
     // wewnetrzne
-    obj.doWyceny= true;
-    obj.doNaprawy = false;
+    obj.doWyceny                = true;
+    obj.doRozpoznania           = false;
+    obj.czyRozpoznano           = false;
+    obj.wycena                  = null;
+    obj.czyPoinformowanoKlienta = false;
+    obj.doNaprawy               = false;
+    obj.czyNaprawiono           = false;
+    obj.koncowaCena             = null;
+    obj.czyOddano               = false;
+
     obj.dodatkoweInfo = null;
 
     var now = new Date();

@@ -3,9 +3,10 @@ var ES_Details = {};
 //ES_Details.Password = "elasticsearch";
 ES_Details.Url = 'http://192.168.1.60:9200/';
 ES_Details.NaprawaSpawarekIndex = 'naprawa_spawarek';
-ES_Details.CustomersIndex = 'dane_klientow';
-ES_Details.ManufacturerIndex = 'producenci';
-ES_Details.MachineryIndex = 'urzadzenia';
+ES_Details.CustomersIndex       = 'dane_klientow';
+ES_Details.ManufacturerIndex    = 'producenci';
+ES_Details.MachineryIndex       = 'urzadzenia';
+ES_Details.PersistentVarsIndex  = 'zmienne';
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Utility functions

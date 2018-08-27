@@ -202,12 +202,12 @@
         <md-card>
           <md-card-header>
             <md-card-header-text>
-              <span class="md-title">Co z tym robimy</span>
+              <span class="md-title">Podsumowanie</span>
             </md-card-header-text>
           </md-card-header>
           <md-card-content layout="column">
 
-            <div layout="row">
+            <!-- <div layout="row">
               <md-input-container class="md-block" flex="33">
                 <md-switch class="md-primary" ng-model="ctrl.urzadzenie.doWyceny">Najpierw wycena</md-switch>
               </md-input-container>
@@ -221,7 +221,7 @@
                 <label ng-disabled="ctrl.urzadzenie.doWyceny">Przewidywany termin naprawy</label>
                 <md-datepicker ng-disabled="ctrl.urzadzenie.doWyceny" ng-model="ctrl.urzadzenie.przewidywanyTerminNaprawy"></md-datepicker>
               </md-input-container>
-            </div>
+            </div> -->
 
             <div>
               <md-input-container class="md-block">
@@ -251,21 +251,19 @@
 
 <!-- ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
+  <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+
+  <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
   <link rel="stylesheet" type="text/css" href="/DataTables/dataTables.bootstrap4.min.css">
 
   <script src="/DataTables/datatables.min.js"></script>
   <script src="/DataTables/dataTables.bootstrap4.min.js"></script>
   <script src="/Angular-Datatables/angular-datatables.min.js"></script>
   <script src="/Angular-Datatables/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
-  
-  <!-- <script src="/app/scripts.js"></script> -->
-  <script src="/app/AbstractAutocompleteService.js"></script>
-  <script src="/app/CustomerService.js"></script>
-  <script src="/app/MachineryService.js"></script>
-  <script src="/app/ManufacturerService.js"></script>
-  <script src="/app/RepairsWarehouseService.js"></script>
-  <script src="/app/RemSpawApp.js"></script>
+   -->
+
+  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes.php'); ?>
   <script src="/app/PrzyjecieSpawarkiCtrl.js"></script>
 
   </body>
