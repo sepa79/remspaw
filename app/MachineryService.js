@@ -18,16 +18,16 @@ class MachineryService extends AbstractAutocompleteService {
      * @param {*} esId 
      */
     init(esId) {
-        this.manufacturerId       = esId;
-        this.machinery            = {};
-        this.machinery.producent  = esId;
-        this.machinery.nazwa      = null;
-        this.machinery.typ        = {};
-        this.machinery.typ.mig    = true;
-        this.machinery.typ.tig    = false;
-        this.machinery.typ.mma    = false;
-        this.machinery.typ.plazma = false;
-        this.machinery.typ.inne   = false;
+        this.manufacturerId         = esId;
+        this.machinery              = {};
+        this.machinery.idProducenta = esId;
+        this.machinery.nazwa        = null;
+        this.machinery.typ          = {};
+        this.machinery.typ.mig      = true;
+        this.machinery.typ.tig      = false;
+        this.machinery.typ.mma      = false;
+        this.machinery.typ.plazma   = false;
+        this.machinery.typ.inne     = false;
     
         // assign our data to model so that autocomplete can display it etc.
         this.model                = this.machinery;
@@ -51,7 +51,7 @@ class MachineryService extends AbstractAutocompleteService {
             index: this.ES_IndexName,
             type: 'main',
             size: 1000, // That better be enough ;) If not, you need different autocomplete function anyhow
-            body: getQueryBody('producent:"'+this.manufacturerId+'"', '')
+            body: getQueryBody('idProducenta:"'+this.manufacturerId+'"', '')
         })
         .then(function(result) {
             console.log(vm.constructor.name + " loadAll loader result:", result);

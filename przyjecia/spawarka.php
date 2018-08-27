@@ -47,7 +47,7 @@
                 md-items="item in ctrl.customerService.querySearch(ctrl.customerService.model.nazwaFirmy)"
                 md-item-text="item.display"
                 md-min-length="0"
-                md-clear-button="false"
+                md-clear-button="true"
                 md-floating-label="Nazwa firmy">
               <md-item-template>
                 <span md-highlight-text="ctrl.customerService.searchText">{{item.display}}</span>
@@ -114,7 +114,7 @@
               md-items="item in ctrl.manufacturerService.querySearch(ctrl.manufacturerService.model.nazwaFirmy)"
               md-item-text="item.display"
               md-min-length="0"
-              md-clear-button="false"
+              md-clear-button="true"
               md-floating-label="Producent">
               <md-item-template>
                 <span md-highlight-text="ctrl.manufacturerService.searchText">{{item.display}}</span>
@@ -139,7 +139,7 @@
               md-items="item in ctrl.machineryService.querySearch(ctrl.machineryService.model.nazwa)"
               md-item-text="item.display"
               md-min-length="0"
-              md-clear-button="false"
+              md-clear-button="true"
               md-floating-label="Model">
               <md-item-template>
                 <span md-highlight-text="ctrl.machineryService.searchText">{{item.display}}</span>
@@ -181,16 +181,16 @@
                   <md-icon md-font-icon="fa-lg" ng-class="ctrl.urzadzenie.maUchwyt ? 'fas fa-check-square' : 'far fa-square'" ></md-icon>Uchwyt
                 </md-button> -->
                 <div layout="row" layout-sm="column">
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maUchwyt">Uchwyt</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maUchwytMasowy">Uchwyt masowy</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maAdaptor">Adaptor</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maDrut">Drut</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.maReduktor">Reduktor</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maUchwyt">Uchwyt</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maUchwytMasowy">Uchwyt masowy</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maAdaptor">Adaptor</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maDrut">Drut</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maReduktor">Reduktor</md-checkbox>
                 </div>
                 <div>
                   <md-input-container class="md-block">
                     <label>Dodatkowe wyposażenie</label>
-                    <textarea ng-model="ctrl.urzadzenie.dodatkoweWyposazenie" md-maxlength="200" rows="2" md-select-on-focus=""></textarea>
+                    <textarea ng-model="ctrl.urzadzenie.Wyposazenie.dodatkowe" md-maxlength="200" rows="2" md-select-on-focus=""></textarea>
                   </md-input-container>
                 </div>
               </md-card-content>

@@ -8,29 +8,69 @@ class RepairsWarehouseService {
      * @param {*} esClient 
      */
     constructor($q, esClient) {
-        this.$q       = $q;
-        this.esClient = esClient;
-        // call Init in your extending class
-        //this.init()
-        // console.log("Robia nowy obiekt do obslugi Autocomplete");
+        this.$q          = $q;
+        this.esClient    = esClient;
+        this.dataStore   = {};
+        this.inWarehouse = [];
     }
     
+    // tu trza zaladowac NaprawaSpawarekIndex, ManufacturerIndex, MachineryIndex i CustomersIndex
     loadAll(filterQuery) {
         var esQuery = '';
         if( filterQuery != "" ){
             esQuery = filterQuery;
         }
         var defer = this.$q.defer();
-        this.esClient.search({
-            index: ES_Details.NaprawaSpawarekIndex,
-            type: 'main',
-            size: 10000,
-            // body: getQueryBody(esQuery, '')
-            // body: getQueryBody(esQuery, trAppState.PrzyjecieSpawarkiCtrl.TimeRange)
+        var vm = this;
+        this.esClient.msearch({
+            body: [
+                {
+                    index: ES_Details.NaprawaSpawarekIndex,
+                    type: 'main',
+                    size: 10000
+                },
+                { query: { match_all: {} } },
+                {
+                    index: ES_Details.ManufacturerIndex,
+                    type: 'main',
+                    size: 10000
+                },
+                { query: { match_all: {} } },
+                {
+                    index: ES_Details.MachineryIndex,
+                    type: 'main',
+                    size: 10000
+                },
+                { query: { match_all: {} } },
+                {
+                    index: ES_Details.CustomersIndex,
+                    type: 'main',
+                    size: 10000
+                },
+                { query: { match_all: {} } }
+            ]
         })
         .then(function(result) {
             console.log("Result:",result);
-            defer.resolve(result.hits.hits);
+            // wszystko oprocz stanow idzie do jednego wora
+            for (var i = 1; i < result.responses.length; i++) {
+                var response = result.responses[i];
+                response.hits.hits.forEach(hit => {
+                    vm.dataStore[hit._id] = hit._source;
+                });
+            }
+            // stany ida do osobnego wora
+            result.responses[0].hits.hits.forEach(hit => {
+                var hitData = hit._source;
+                hitData.Klient = vm.dataStore[hitData.idKlienta];
+                hitData.Urzadzenie = vm.dataStore[hitData.idModelu];
+                hitData.Urzadzenie.Producent = vm.dataStore[hitData.Urzadzenie.idProducenta];
+                vm.inWarehouse.push(hitData);
+            });
+
+            console.log("Processed Result:",vm.dataStore);
+            console.log("Processed Result:",vm.inWarehouse);
+            defer.resolve(vm.inWarehouse);
         });
         return defer.promise;
     }

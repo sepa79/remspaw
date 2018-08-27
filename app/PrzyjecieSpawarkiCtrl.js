@@ -106,13 +106,14 @@ function nowaSpawarka() {
     // obj.podajnik.numerSeryjny = "";
 
     // wyposazenie
-    obj.maUchwyt = false;
-    obj.maUchwytMasowy = false;
-    obj.maAdaptor = false;
-    obj.maDrut = false;
-    obj.maReduktor = false;
-    obj.maInne = null;
-    obj.dodatkoweWyposazenie = null;
+    obj.Wyposazenie = {};
+    obj.Wyposazenie.maUchwyt = false;
+    obj.Wyposazenie.maUchwytMasowy = false;
+    obj.Wyposazenie.maAdaptor = false;
+    obj.Wyposazenie.maDrut = false;
+    obj.Wyposazenie.maReduktor = false;
+    obj.Wyposazenie.maInne = null;
+    obj.Wyposazenie.dodatkowe = null;
 
     // wewnetrzne
     obj.doWyceny= true;
