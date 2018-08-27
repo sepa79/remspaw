@@ -1,0 +1,9 @@
+<script src="/app/AbstractAutocompleteService.js"></script>
+<script src="/app/CustomerService.js"></script>
+<script src="/app/MachineryService.js"></script>
+<script src="/app/ManufacturerService.js"></script>
+<script src="/app/RepairsWarehouseService.js"></script>
+<script src="/app/PersistentVarsService.js"></script>
+<script src="/app/Class_Urzadzenie.js"></script>
+<script src="/app/RepairStates.js"></script>
+<script src="/app/RemSpawApp.js"></script>
