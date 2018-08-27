@@ -37,6 +37,10 @@ rsApp.controller('StanySerwisuCtrl', function StanySerwisuCtrl(NgTableParams, re
     function getNextState(state){
         return RepairStates[state].nextState;
     }
+    vm.getNextWorkshopState = getNextWorkshopState;
+    function getNextWorkshopState(state){
+        return RepairStates[state].nextWorkshopState;
+    }
     vm.getAbortState = getAbortState;
     function getAbortState(state){
         return RepairStates[state].abortState;

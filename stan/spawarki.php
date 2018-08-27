@@ -10,7 +10,7 @@
         <hr>
         <!-- <table datatable="SpawarkiW_Serwisie" dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns" dt-instance="ctrl.dtInstance" class="table-sm table-bordered table-hover" cellspacing="0" width="100%">
         </table> -->
-<table ng-table="ctrl.tableParams" class="table table-sm table-bordered table-hover" show-filter="true">
+<table ng-table="ctrl.tableParams" class="table table-sm table-bordered table-hover" show-filter="false">
   <tr ng-repeat="row in $data">
     <td data-title="'Data Przyjecia'">{{row.dataPrzyjecia}}</td>
     <td data-title="'Numer'">{{row.numerPrzyjecia}}</td>
@@ -27,10 +27,17 @@
         <md-icon md-font-icon="{{ctrl.getIcon(state)}} fa-lg"></md-icon>
         <md-tooltip md-direction="botom">{{ctrl.getActionName(state)}}</md-tooltip>
       </md-button>
+      <md-button ng-repeat="state in ctrl.getNextWorkshopState(row.State.state)" class="md-raised" ng-click="ctrl.nextState(row, state)">
+        <md-icon md-font-icon="{{ctrl.getIcon(state)}} fa-lg"></md-icon>
+        <md-tooltip md-direction="botom">{{ctrl.getActionName(state)}}</md-tooltip>
+      </md-button>
       <md-button ng-repeat="state in ctrl.getAbortState(row.State.state)" class="md-raised md-warn" ng-click="ctrl.nextState(row, state)">
         <md-icon md-font-icon="{{ctrl.getIcon(state)}} fa-lg"></md-icon>
         <md-tooltip md-direction="botom">{{ctrl.getActionName(state)}}</md-tooltip>
       </md-button>
+    </td>
+    <td data-title="'Historia'">
+      <p ng-repeat="state in row.StateHistory">{{state.date}} - {{state.state}}</p>
     </td>
   </tr>
 </table>
