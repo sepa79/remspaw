@@ -75,7 +75,7 @@ rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppSt
                 vm.machineryService.update();
             }
         }
-    // Proxy method - when selecting Manufacturerwe have to reload the Machinery
+    // Proxy method - when selecting Manufacturer we have to reload the Machinery
     vm.selectManufacturer = selectManufacturer;
     function selectManufacturer(item){
         vm.manufacturerService.selectExisting(item);
@@ -88,56 +88,3 @@ rsApp.controller('PrzyjecieSpawarkiCtrl', function PrzyjecieSpawarkiCtrl(rsAppSt
 });
 
 /*---~~+=============================================================================================+~~---*/
-function nowaSpawarka() {
-    var obj = {};
-
-    obj.numerPrzyjecia = null;
-    obj.dataPrzyjecia = new Date();
-    // dane klienta
-    obj.idKlienta = null;
-    // dane spawarki
-    obj.idModelu = null;
-    obj.numerSeryjny = null;
-
-    // urzadzenia dodatkowe
-    // obj.chlodnica = {};
-    // obj.chlodnica.jest = false;
-    // obj.chlodnica.producent = "";
-    // obj.chlodnica.model = "";
-    // obj.chlodnica.numerSeryjny = "";
-    // obj.podajnik = {};
-    // obj.podajnik.jest = false;
-    // obj.podajnik.producent = "";
-    // obj.podajnik.model = "";
-    // obj.podajnik.numerSeryjny = "";
-
-    // wyposazenie
-    obj.Wyposazenie = {};
-    obj.Wyposazenie.maUchwyt = false;
-    obj.Wyposazenie.maUchwytMasowy = false;
-    obj.Wyposazenie.maAdaptor = false;
-    obj.Wyposazenie.maDrut = false;
-    obj.Wyposazenie.maReduktor = false;
-    obj.Wyposazenie.maInne = null;
-    obj.Wyposazenie.dodatkowe = null;
-
-    // wewnetrzne
-    obj.doWyceny                = true;
-    obj.doRozpoznania           = false;
-    obj.czyRozpoznano           = false;
-    obj.wycena                  = null;
-    obj.czyPoinformowanoKlienta = false;
-    obj.doNaprawy               = false;
-    obj.czyNaprawiono           = false;
-    obj.koncowaCena             = null;
-    obj.czyOddano               = false;
-
-    obj.dodatkoweInfo = null;
-
-    var now = new Date();
-    now.setDate(now.getDate()+14);
-    obj.przewidywanyTerminWyceny  = now; 
-    obj.przewidywanyTerminNaprawy = now; 
-    
-    return obj;
-}

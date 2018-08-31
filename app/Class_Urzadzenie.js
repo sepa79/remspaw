@@ -20,19 +20,22 @@ class Urzadzenie {
         // this.podajnik.model = "";
         // this.podajnik.numerSeryjny = "";
         
-        // wyposazenie
+        // wyposazenie - specjalny filtr zmieni nazwy na ladne i czytelne, dlatego _ jest uzywane
         this.Wyposazenie = {};
-        this.Wyposazenie.maUchwyt       = false;
-        this.Wyposazenie.maUchwytMasowy = false;
-        this.Wyposazenie.maAdaptor      = false;
-        this.Wyposazenie.maDrut         = false;
-        this.Wyposazenie.maReduktor     = false;
-        this.Wyposazenie.dodatkowe      = null;
+        this.Wyposazenie.uchwyt        = false;
+        this.Wyposazenie.uchwyt_masowy = false;
+        this.Wyposazenie.adaptor       = false;
+        this.Wyposazenie.drut          = false;
+        this.Wyposazenie.reduktor      = false;
+        this.Wyposazenie.inne          = null;
         
         // wewnetrzne
+        this.opisUszkodzenia = null;
         this.dodatkoweInfo = null;
         this.StateHistory = [];
         this.State = {};
+
+        this.Rozpoznanie = new Rozpoznanie();
     }
 
     static create(objectData){

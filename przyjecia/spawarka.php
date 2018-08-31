@@ -4,9 +4,6 @@
   <body><?php include ($_SERVER['DOCUMENT_ROOT'].'/navbar.php'); ?>
 
 <div ng-app="RemSpawApp" ng-cloak ng-controller="PrzyjecieSpawarkiCtrl as ctrl" ng-cloak class="inputErrors md-inline-form" layout-fill>
-<br/>
-<br/>
-<br/>
   <md-content>
     <div>
       <form name="przyjecieSpawarki" ng-submit="ctrl.confirmReceipt(ctrl.urzadzenie)">
@@ -181,16 +178,16 @@
                   <md-icon md-font-icon="fa-lg" ng-class="ctrl.urzadzenie.maUchwyt ? 'fas fa-check-square' : 'far fa-square'" ></md-icon>Uchwyt
                 </md-button> -->
                 <div layout="row" layout-sm="column">
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maUchwyt">Uchwyt</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maUchwytMasowy">Uchwyt masowy</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maAdaptor">Adaptor</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maDrut">Drut</md-checkbox>
-                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.maReduktor">Reduktor</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.uchwyt">Uchwyt</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.uchwyt_masowy">Uchwyt masowy</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.adaptor">Adaptor</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.drut">Drut</md-checkbox>
+                  <md-checkbox flex="20" ng-model="ctrl.urzadzenie.Wyposazenie.reduktor">Reduktor</md-checkbox>
                 </div>
                 <div>
                   <md-input-container class="md-block">
                     <label>Dodatkowe wyposażenie</label>
-                    <textarea ng-model="ctrl.urzadzenie.Wyposazenie.dodatkowe" md-maxlength="200" rows="2" md-select-on-focus=""></textarea>
+                    <textarea ng-model="ctrl.urzadzenie.Wyposazenie.inne" md-maxlength="200" rows="2" md-select-on-focus=""></textarea>
                   </md-input-container>
                 </div>
               </md-card-content>
@@ -225,6 +222,13 @@
 
             <div>
               <md-input-container class="md-block">
+                <label>Opis uszkodzenia</label>
+                <textarea ng-model="ctrl.urzadzenie.opisUszkodzenia" md-maxlength="500" rows="5" md-select-on-focus=""></textarea>
+              </md-input-container>
+            </div>
+
+            <div>
+              <md-input-container class="md-block">
                 <label>Dodatkowe informacje</label>
                 <!-- <md-icon md-font-icon="far fa-edit fa-lg"></md-icon> -->
                 <textarea ng-model="ctrl.urzadzenie.dodatkoweInfo" md-maxlength="500" rows="5" md-select-on-focus=""></textarea>
@@ -251,17 +255,8 @@
 
 <!-- ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-  <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
-  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
-
-  <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
-  <link rel="stylesheet" type="text/css" href="/DataTables/dataTables.bootstrap4.min.css">
-
-  <script src="/DataTables/datatables.min.js"></script>
-  <script src="/DataTables/dataTables.bootstrap4.min.js"></script>
-  <script src="/Angular-Datatables/angular-datatables.min.js"></script>
-  <script src="/Angular-Datatables/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
-   -->
+  <link rel="stylesheet"; href="/css/ng-table.min.css">
+  <script src="/js/ng-table.hack.js"></script>
 
   <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes.php'); ?>
   <script src="/app/PrzyjecieSpawarkiCtrl.js"></script>

@@ -5,5 +5,6 @@
 <script src="/app/RepairsWarehouseService.js"></script>
 <script src="/app/PersistentVarsService.js"></script>
 <script src="/app/Class_Urzadzenie.js"></script>
+<script src="/app/Class_Rozpoznanie.js"></script>
 <script src="/app/RepairStates.js"></script>
 <script src="/app/RemSpawApp.js"></script>

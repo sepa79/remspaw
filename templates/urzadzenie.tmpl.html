@@ -1,0 +1,28 @@
+<md-card flex="">
+  <md-card-actions layout="column">
+    <md-button style="text-align:left;" ng-click="hideBody = !hideBody" ng-init="hideBody=false">
+      <md-icon md-font-icon="fas" ng-class="hideBody ? 'fa-chevron-right' : 'fa-chevron-down'"></md-icon>
+      Informacje o urządzeniu
+    </md-button>
+  </md-card-actions>
+  <md-card-content ng-hide="hideBody">
+    <table class="table table-sm">
+      <tr>
+        <th style="width:20%">Przyjęcie</th>
+        <td>{{urzadzenie.numerPrzyjecia}}</td>
+      </tr>
+      <tr>
+        <th style="width:20%">Data</th>
+        <td>{{urzadzenie.dataPrzyjecia | moment: 'format': 'LLL'}}</td>
+      </tr>
+      <tr>
+        <th>Usterka</th>
+        <td>{{urzadzenie.opisUszkodzenia}}</td>
+      </tr>
+      <tr>
+        <th>Dodaktowe informacje</th>
+        <td>{{urzadzenie.dodatkoweInfo}}</td>
+      </tr>
+    </table>
+  </md-card-content>
+</md-card>

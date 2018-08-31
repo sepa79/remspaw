@@ -1,0 +1,18 @@
+<md-card flex="">
+  <md-card-actions layout="column">
+    <md-button style="text-align:left;" ng-click="hideBody = !hideBody" ng-init="hideBody=true">
+      <md-icon md-font-icon="fas" ng-class="hideBody ? 'fa-chevron-right' : 'fa-chevron-down'"></md-icon>
+      Wyposażenie dodatkowe
+    </md-button>
+  </md-card-actions>
+  <md-card-content ng-hide="hideBody">
+    <table class="table table-sm">
+      <tr ng-repeat="pName in urzadzenie.Wyposazenie | orderByKeyB:false">
+        <td>{{pName | prettyName}}</td>
+        <td ng-if="urzadzenie.Wyposazenie[pName] == true">Jest</td>
+        <td ng-if="urzadzenie.Wyposazenie[pName] == false">---</td>
+        <td ng-if="urzadzenie.Wyposazenie[pName] != true && urzadzenie.Wyposazenie[pName] != false">{{urzadzenie.Wyposazenie[pName]}}</td>
+      </tr>
+    </table>
+  </md-card-content>
+</md-card>

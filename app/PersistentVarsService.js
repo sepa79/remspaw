@@ -63,7 +63,7 @@ class PersistentVarsService {
         vm.getVar("repairsIndex").then(function(result) {
             var index = result;
             var d = new Date();
-            var m = d.getMonth();
+            var m = d.getMonth()+1;
             var y = d.getFullYear();
             if(index == null){
                 index = {};

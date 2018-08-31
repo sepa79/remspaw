@@ -14,6 +14,82 @@ rsApp.factory('rsAppState', function() {
 });
 
 /*---~~+=============================================================================================+~~---*/
+/* Filters */       
+/*---~~+=============================================================================================+~~---*/
+rsApp.filter('orderByKey', function() {
+    return function(items, reversal) {
+        var normalKeys = [];
+        var objectKeys = [];
+        angular.forEach(items, function(value, key) {
+            if( angular.isObject(value) ){
+                objectKeys.push(key);
+            } else {
+                normalKeys.push(key)
+            }
+        });
+        var sortedKeys = normalKeys.sort();
+        if( reversal ) sortedKeys.reverse();
+        var sortedObjectKeys = objectKeys.sort();
+        if( reversal ) sortedObjectKeys.reverse();
+        sortedKeys = sortedKeys.concat(sortedObjectKeys);
+        return sortedKeys;
+    };
+});
+
+rsApp.filter('orderByKeyB', function() {
+    return function(items, reversal) {
+        var boolKeys = [];
+        var normalKeys = [];
+        var objectKeys = [];
+        angular.forEach(items, function(value, key) {
+            if( angular.isObject(value) ){
+                objectKeys.push(key);
+            } else if (typeof value == "boolean") {
+                boolKeys.push(key);
+            } else {
+                normalKeys.push(key);
+            }
+        });
+        var sortedKeys = normalKeys.sort();
+        if( reversal ) sortedKeys.reverse();
+        var sortedBoolKeys = boolKeys.sort();
+        if( reversal ) sortedBoolKeys.reverse();
+        sortedKeys = sortedBoolKeys.concat(sortedKeys);
+        var sortedObjectKeys = objectKeys.sort();
+        if( reversal ) sortedObjectKeys.reverse();
+        sortedKeys = sortedKeys.concat(sortedObjectKeys);
+        return sortedKeys;
+    };
+});
+
+rsApp.filter('prettyName', function () {
+    return function (input) {
+        var string = input.replace("_", " ");
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+});
+
+// REQUIRES:
+// moment.js - http://momentjs.com/
+
+// USAGE:
+// {{ someDate | moment: [any moment function] : [param1] : [param2] : [param n] 
+
+// EXAMPLES:
+// {{ someDate | moment: 'format': 'MMM DD, YYYY' }}
+// {{ someDate | moment: 'fromNow' }}
+
+// To call multiple moment functions, you can chain them.
+// For example, this converts to UTC and then formats...
+// {{ someDate | moment: 'utc' | moment: 'format': 'MMM DD, YYYY' }}
+rsApp.filter('moment', function () {
+    return function (input, momentFn /*, param1, param2, ...param n */) {
+        var args = Array.prototype.slice.call(arguments, 2),
+            momentObj = moment(input);
+        return momentObj[momentFn].apply(momentObj, args);
+    };
+});
+/*---~~+=============================================================================================+~~---*/
 
 rsApp.service('customerService', CustomerService);
 rsApp.service('manufacturerService', ManufacturerService);

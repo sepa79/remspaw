@@ -1,0 +1,44 @@
+<md-card flex="">
+  <md-card-actions layout="column">
+    <md-button style="text-align:left;" ng-click="hideBody = !hideBody" ng-init="hideBody=true">
+      <md-icon md-font-icon="fas" ng-class="hideBody ? 'fa-chevron-right' : 'fa-chevron-down'"></md-icon>
+      Rozpoznanie urządzenia
+    </md-button>
+  </md-card-actions>
+  <md-card-content ng-hide="hideBody">
+    <div ng-if="urzadzenie.Rozpoznanie.lastUpdate">
+      <div ng-if="urzadzenie.Rozpoznanie.lastUpdate && urzadzenie.Rozpoznanie.dataZakonczenia!=urzadzenie.Rozpoznanie.lastUpdate" >Ostatnie zmiany: <i>{{urzadzenie.Rozpoznanie.lastUpdate | moment: 'format': 'LLL'}}</i></div>
+      <div ng-if="urzadzenie.Rozpoznanie.dataZakonczenia" >Rozpoznanie zakończono: <i>{{urzadzenie.Rozpoznanie.dataZakonczenia | moment: 'format': 'LLL'}}</i></div>
+      <br/>
+    </div>
+    <table class="table table-sm">
+      <tr ng-repeat="pName in urzadzenie.Rozpoznanie.Tests | orderByKey:false">
+        <td style="width:40%">{{urzadzenie.Rozpoznanie.getPrettyName(pName)}}</td>
+        <td ng-init="urzadzenie.Rozpoznanie.Tests[pName]!='Nie wykonano' ? (urzadzenie.Rozpoznanie.Tests[pName]!='Ok' ? showInputBox=true : showInputBox=false) : showInputBox=false;;">
+          <md-button ng-disabled="readOnly" aria-label="N/A" ng-click="urzadzenie.Rozpoznanie.Tests[pName]='Nie wykonano'; showInputBox=false" class="md-tableButtonShort"
+            ng-class="urzadzenie.Rozpoznanie.Tests[pName]=='Nie wykonano' ? 'md-raised' : ''">
+            Nie wykonano
+          </md-button>
+          <md-button ng-disabled="readOnly" aria-label="Ok" ng-click="urzadzenie.Rozpoznanie.Tests[pName]='Ok'; showInputBox=false" class="md-tableButtonShort"
+            ng-class="urzadzenie.Rozpoznanie.Tests[pName]=='Ok' ? 'md-raised' : ''">
+            Ok
+          </md-button>
+          <md-button ng-disabled="readOnly" aria-label="Other" ng-click="showInputBox==true ? '' : urzadzenie.Rozpoznanie.Tests[pName]=''; showInputBox=true"
+            class="md-tableButtonShort" ng-class="showInputBox ? 'md-raised' : ''">
+            Inne
+          </md-button>
+          <md-input-container ng-if="!readOnly" md-no-float class="md-block" ng-show="showInputBox" style="margin-bottom: 0px;">
+            <textarea ng-model="urzadzenie.Rozpoznanie.Tests[pName]" md-maxlength="500" rows="1" placeholder="Podej szczegóły" />
+          </md-input-container>
+          <div ng-if="readOnly" ng-show="showInputBox">{{urzadzenie.Rozpoznanie.Tests[pName]}}</div>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <md-input-container md-no-float class="md-block" style="margin: 30px 0px 0px 0px;">
+        <label>Stwierdzone uszkodzenia</label>
+        <textarea  ng-disabled="readOnly" ng-model="urzadzenie.Rozpoznanie.stwierdzoneUszkodzenia" md-maxlength="500" rows="3" placeholder="Podej szczegóły" />
+      </md-input-container>
+    </div>
+  </md-card-content>
+</md-card>

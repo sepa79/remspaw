@@ -1,0 +1,29 @@
+<md-dialog aria-label="Rozpoznanie" flex="90">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Rozpoznanie usterek
+          <i>{{urzadzenie.Urzadzenie.nazwa}}</i>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-icon="fas fa-times fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div ng-include="'/templates/urzadzenie.tmpl.html'"></div>
+        <div ng-include="'/templates/wyposazenie.tmpl.html'"></div>
+        <div ng-init="readOnly=false" ng-include="'/templates/rozpoznanie.tmpl.html'"></div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="urzadzenie.Rozpoznanie.finish(); finish()" class="md-primary">Zakończ</md-button>
+      <md-button ng-click="urzadzenie.Rozpoznanie.continueLater(); continueLater()">Kontynuuj później</md-button>
+      <md-button ng-click="cancel()" class="md-warn">Anuluj</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

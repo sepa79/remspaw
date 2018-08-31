@@ -1,136 +1,183 @@
 var RepairStates = {
-    // "" - brak, pusty obiekt
     "Przyjeto": {
-        name: "Przyjeto", // musi byc dokladnie to samo jak klucz
-        actionName: "Przyjęcie", // uzywane na przyciskach
+        name:        "Przyjeto", // musi byc dokladnie to samo jak klucz
+        type:        "Initial",
+        actionName:  "Przyjęcie", // uzywane na przyciskach
         description: "Przyjęto na serwis, oczekuje na dalsze dyspozycje.",
-        nextState: ["DoRozpoznania"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-warehouse"
+        nextState:   ["DoRozpoznania"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-warehouse"
     },
     "Rezygnacja": {
-        name: "Rezygnacja",
-        actionName: "Rezygnacja",
+        name:        "Rezygnacja",
+        type:        "Abort",
+        actionName:  "Rezygnacja",
         description: "Klient zrezygnował z naprawy.",
-        nextState: ["DoOdbioru", "Zezlomuj"],
-        abortState: [],
-        icon: "fas fa-ban"
+        nextState:   ["DoOdbioru", "Zezlomuj"],
+        abortState:  [],
+        form:        null,        
+        icon:        "fas fa-ban"
     },
     "DoRozpoznania": {
-        name: "DoRozpoznania",
-        actionName: "Do rozpoznania",
+        name:        "DoRozpoznania",
+        type:        "WorkQueue",
+        actionName:  "Do rozpoznania",
         description: "W kolejce do sprawdzenia.",
-        // BRAK nastepnego stanu - idzie przez Workshop
-        nextWorkshopState: ["W_Rozpoznaniu"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-eye"
+        nextState:   ["W_Rozpoznaniu"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-eye"
     },
     "W_Rozpoznaniu": {
-        name: "W_Rozpoznaniu",
-        actionName: "Sprawdź uszkodzenia",
+        name:        "W_Rozpoznaniu",
+        type:        "Work",
+        actionName:  "Sprawdź uszkodzenia",
         description: "Warsztat sprawdza urządzenie.",
-        // BRAK nastepnego stanu - idzie przez Workshop
-        nextWorkshopState: ["Rozpoznano"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-plug"
+        nextState:   ["Rozpoznano"],
+        abortState:  ["Rezygnacja"],
+        form:        "/templates/rozpoznanie.form.html",
+        icon:        "fas fa-plug"
     },
     "Rozpoznano": {
-        name: "Rozpoznano",
-        actionName: "*Rozpoznano*", // BRAK przycisku - stan końcowy po 'W_Rozpoznaniu'
+        name:        "Rozpoznano",
+        type:        "WorkFinished",
+        actionName:  null,
         description: "Urządzenie sprawdzone, czeka na wycenę.",
-        nextState: ["Wyceniono"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-clipboard-list"
+        nextState:   ["Wycena"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-clipboard-list"
+    },
+    "Wycena": {
+        name:        "Wycena",
+        type:        "Office",
+        actionName:  "Wyceń naprawę",
+        description: "Biuro musi dokonać wstępnej wyceny.",
+        nextState:   ["Wyceniono"],
+        abortState:  ["Rezygnacja"],
+        form:        "/templates/wycena.form.html",
+        icon:        "fas fa-dollar-sign"
     },
     "Wyceniono": {
-        name: "Wyceniono",
-        actionName: "Wyceń naprawę",
+        name:        "Wyceniono",
+        type:        "OfficeFinished",
+        actionName:  null,
         description: "Dokonano wstępnej wyceny.",
-        nextState: ["PoinformowanoO_Wycenie"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-coins"
+        nextState:   ["PoinformowanoO_Wycenie"],
+        abortState:  ["Rezygnacja"],
+        form:        "/templates/wycena.form.html",
+        icon:        "fas fa-coins"
     },
     "PoinformowanoO_Wycenie": {
-        name: "PoinformowanoO_Wycenie",
-        actionName: "Pokaż info o kliencie",
+        name:        "PoinformowanoO_Wycenie",
+        type:        "DecissionQueue",
+        actionName:  "Pokaż info o kliencie",
         description: "Oczekuje na decyzję klienta.",
-        nextState: ["DoNaprawy"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-phone"
+        nextState:   ["DoNaprawy"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-phone"
     },
     "DoNaprawy": {
-        name: "DoNaprawy",
-        actionName: "Zezwól na naprawę",
+        name:        "DoNaprawy",
+        type:        "WorkQueue",
+        actionName:  "Zezwól na naprawę",
         description: "W kolejce do naprawy.",
-        // BRAK nastepnego stanu - idzie przez Workshop
-        nextWorkshopState: ["W_Naprawie", "CzekaNaCzesci"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-screwdriver"
+        nextState:   ["W_Naprawie", "CzekaNaCzesci"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-screwdriver"
     },
     "W_Naprawie": {
-        name: "W_Naprawie",
-        actionName: "Rozpocznij naprawę",
+        name:        "W_Naprawie",
+        type:        "Work",
+        actionName:  "Rozpocznij naprawę",
         description: "Warsztat naprawia urządzenie.",
-        // BRAK nastepnego stanu - idzie przez Workshop
-        nextWorkshopState: ["Naprawiono", "NieDaRady", "CzekaNaCzesci"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-users-cog"
+        nextState:   ["Naprawiono", "NieDaRady", "CzekaNaCzesci"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-users-cog"
     },
     "CzekaNaCzesci": {
-        name: "CzekaNaCzesci",
-        actionName: "Podaj brakujące części",
+        name:        "CzekaNaCzesci",
+        type:        "PartsQueue",
+        actionName:  "Brakujące części",
         description: "Urządzenie czeka na części zamienne.",
-        nextWorkshopState: ["W_Naprawie"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-list-ol"
+        nextState:   ["W_Naprawie"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-list-ol"
     },
     "Naprawiono": {
-        name: "Naprawiono",
-        actionName: "*Naprawiono*", // BRAK przycisku - stan końcowy po 'W_Naprawie'
+        name:        "Naprawiono",
+        type:        "WorkFinished",
+        actionName:  null,
         description: "Urządzenie naprawione, czeka na odbiór.",
-        nextState: ["PoinformowanoO_Naprawie"],
-        abortState: ["Rezygnacja"],
-        icon: "fas fa-thumbs-up"
+        nextState:   ["PoinformowanoO_Naprawie"],
+        abortState:  ["Rezygnacja"],
+        form:        null,
+        icon:        "fas fa-thumbs-up"
     },
     "NieDaRady": {
-        name: "NieDaRady",
-        actionName: "*NieDaRady*", // BRAK przycisku - stan końcowy po 'W_Naprawie'
+        name:        "NieDaRady",
+        type:        "WorkFinished",
+        actionName:  null,
         description: "Urządzenie nie zostało naprawione, czeka na odbiór.",
-        nextState: ["PoinformowanoO_Naprawie"],
-        abortState: ["Zezlomuj"],
-        icon: "fas fa-frown"
+        nextState:   ["PoinformowanoO_Naprawie"],
+        abortState:  ["Zezlomuj"],
+        form:        null,
+        icon:        "fas fa-frown"
     },
     "PoinformowanoO_Naprawie": {
-        name: "PoinformowanoO_Naprawie",
-        actionName: "Pokaż info o kliencie",
+        name:        "PoinformowanoO_Naprawie",
+        type:        "DecissionQueue",
+        actionName:  "Info o kliencie",
         description: "Oczekuje na kontakt klienta.",
-        nextState: ["DoOdbioru"],
-        abortState: ["Zezlomuj"],
-        icon: "fas fa-phone-volume"
+        nextState:   ["DoOdbioru"],
+        abortState:  ["Zezlomuj"],
+        form:        null,
+        icon:        "fas fa-phone-volume"
     },
     "Zezlomuj": {
-        name: "Zezlomuj",
-        actionName: "Zezłomuj urządzenie",
+        name:        "Zezlomuj",
+        type:        "Abort",
+        actionName:  "Zezłomuj urządzenie",
         description: "Klient zdecydował o złomowaniu urządzenia.",
-        nextState: [],
-        abortState: [],
-        icon: "fas fa-poo"
+        nextState:   [],
+        abortState:  [],
+        form:        null,
+        icon:        "fas fa-trash-alt"
     },
     "DoOdbioru": {
-        name: "DoOdbioru",
-        actionName: "*DoOdbioru*", // BRAK przycisku - stan końcowy po 'PoinformowanoO_Naprawie'
+        name:        "DoOdbioru",
+        type:        "PickupQueue",
+        actionName:  null,
         description: "Urządzenie oczekuje na odbiór.",
-        nextState: ["Odebrano"],
-        abortState: ["Zezlomuj"],
-        icon: "fas fa-truck-loading"
+        nextState:   ["Odbior"],
+        abortState:  ["Zezlomuj"],
+        form:        null,
+        icon:        "fas fa-truck-loading"
+    },
+    "Odbior": {
+        name:        "Odbior",
+        type:        "Office",
+        actionName:  "Potwierdź odbiór",
+        description: "Klient odbiera urządzenie.",
+        nextState:   ["Odebrano"],
+        abortState:  [],
+        form:        "/templates/potwierdzenieOdbioru.form.html",
+        icon:        "fas fa-clipboard-check"
     },
     "Odebrano": {
-        name: "Odebrano",
-        actionName: "Potwierdź odbiór",
+        name:        "Odebrano",
+        type:        "Final",
+        actionName:  null,
         description: "Klient odebrał urządzenie.",
-        nextState: [],
-        abortState: [],
-        icon: "fas fa-shipping-fast"
+        nextState:   [],
+        abortState:  [],
+        form:        null,
+        icon:        "fas fa-shipping-fast"
     },
 }
 Object.freeze(RepairStates);
